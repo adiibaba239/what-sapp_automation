@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>WhatsApp Automation Configuration</title>
+</head>
+<body>
+    <h1>WhatsApp Automation Configuration</h1>
+    <form action="/submit" method="post" enctype="multipart/form-data">
+        <label for="csv_file">CSV File:</label>
+        <input type="file" id="csv_file" name="csv_file" required><br><br>
+
+        <label for="start_row">Start Row:</label>
+        <input type="number" id="start_row" name="start_row" required><br><br>
+
+        <label for="end_row">End Row:</label>
+        <input type="number" id="end_row" name="end_row" required><br><br>
+
+        <label for="file_sending_strategy">File Sending Strategy:</label>
+        <select id="file_sending_strategy" name="file_sending_strategy" onchange="updateFileInputs()" required>
+            <option value="">Select...</option>
+            <option value="same">Same</option>
+            <option value="different">Different</option>
+        </select><br><br>
+
+        <div id="same_strategy" style="display:none;">
+            <label for="single_or_multiple_files">Single or Multiple Files:</label>
+            <select id="single_or_multiple_files" name="single_or_multiple_files" onchange="updateSameFileInputs()">
+                <option value="">Select...</option>
+                <option value="single">Single</option>
+                <option value="multiple">Multiple</option>
+            </select><br><br>
+
+            <div id="single_file_input" style="display:none;">
+                <label for="single_file">File:</label>
+                <input type="file" id="single_file" name="file_paths"><br><br>
+            </div>
+
+            <div id="multiple_file_input" style="display:none;">
+                <label for="multiple_files">Files:</label>
+                <input type="file" id="multiple_files" name="file_paths" multiple><br><br>
+            </div>
+        </div>
+
+        <div id="different_strategy" style="display:none;">
+            <label for="file_folder">Folder Path:</label>
+            <input type="text" id="file_folder" name="file_folder_path"><br><br>
+        </div>
+
+        <label for="file_extension">File Extension:</label>
+        <input type="text" id="file_extension" name="file_extension" required><br><br>
+
+        <label for="message_sending_strategy">Message Sending Strategy:</label>
+        <select id="message_sending_strategy" name="message_sending_strategy" onchange="updateMessageInputs()" required>
+            <option value="">Select...</option>
+            <option value="same">Same</option>
+            <option value="different">Different</option>
+        </select><br><br>
+
+        <div id="same_message_strategy" style="display:none;">
+            <label for="message">Message:</label>
+            <textarea id="message" name="message"></textarea><br><br>
+        </div>
+
+        <div id="different_message_strategy" style="display:none;">
+            <label for="template_message">Template Message:</label>
+            <textarea id="template_message" name="template_message"></textarea><br><br>
+
+            <label for="math_column_index">Math Column Index:</label>
+            <input type="number" id="math_column_index" name="math_column_index"><br><br>
+
+            <label for="science_column_index">Science Column Index:</label>
+            <input type="number" id="science_column_index" name="science_column_index"><br><br>
+
+            <label for="hindi_column_index">Hindi Column Index:</label>
+            <input type="number" id="hindi_column_index" name="hindi_column_index"><br><br>
+
+            <label for="english_column_index">English Column Index:</label>
+            <input type="number" id="english_column_index" name="english_column_index"><br><br>
+
+            <label for="social_science_column_index">Social Science Column Index:</label>
+            <input type="number" id="social_science_column_index" name="social_science_column_index"><br><br>
+        </div>
+
+        <label for="contactname">Contact Name Column Index:</label>
+        <input type="number" id="contactname" name="contactname" required><br><br>
+
+        <label for="contactnumber">Contact Number Column Index:</label>
+        <input type="number" id="contactnumber" name="contactnumber" required><br><br>
+
+        <input type="submit" value="Submit">
+    </form>
+
+    <script>
+        function updateFileInputs() {
+            var fileStrategy = document.getElementById('file_sending_strategy').value;
+            var sameStrategy = document.getElementById('same_strategy');
+            var differentStrategy = document.getElementById('different_strategy');
+
+            if (fileStrategy === 'same') {
+                sameStrategy.style.display = 'block';
+                differentStrategy.style.display = 'none';
+            } else if (fileStrategy === 'different') {
+                sameStrategy.style.display = 'none';
+                differentStrategy.style.display = 'block';
+            } else {
+                sameStrategy.style.display = 'none';
+                differentStrategy.style.display = 'none';
+            }
+        }
+
+        function updateSameFileInputs() {
+            var singleOrMultiple = document.getElementById('single_or_multiple_files').value;
+            var singleFileInput = document.getElementById('single_file_input');
+            var multipleFileInput = document.getElementById('multiple_file_input');
+
+            if (singleOrMultiple === 'single') {
+                singleFileInput.style.display = 'block';
+                multipleFileInput.style.display = 'none';
+            } else if (singleOrMultiple === 'multiple') {
+                singleFileInput.style.display = 'none';
+                multipleFileInput.style.display = 'block';
+            } else {
+                singleFileInput.style.display = 'none';
+                multipleFileInput.style.display = 'none';
+            }
+        }
+
+        function updateMessageInputs() {
+            var messageStrategy = document.getElementById('message_sending_strategy').value;
+            var sameMessageStrategy = document.getElementById('same_message_strategy');
+            var differentMessageStrategy = document.getElementById('different_message_strategy');
+
+            if (messageStrategy === 'same') {
+                sameMessageStrategy.style.display = 'block';
+                differentMessageStrategy.style.display = 'none';
+            } else if (messageStrategy === 'different') {
+                sameMessageStrategy.style.display = 'none';
+                differentMessageStrategy.style.display = 'block';
+            } else {
+                sameMessageStrategy.style.display = 'none';
+                differentMessageStrategy.style.display = 'none';
+            }
+        }
+    </script>
+</body>
+</html>
